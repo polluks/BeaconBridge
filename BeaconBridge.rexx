@@ -349,5 +349,6 @@ relay: procedure expose PC. fwd SENDAPP
   return out
 
 error:
-  say APP || ': error at line ' || sigl || ' (' || condition('D') || ') ' || condition('E')
+  say APP || ': error at line ' || sigl
+  if result ~= '' then say APP || ': ' || result
   exit 10
