@@ -12,10 +12,25 @@ ARexx notification bridge between MagicBeacon (MorphOS) and Ringhio (AmigaOS 4.1
 ```
 BeaconBridge.rexx "message" [TITLE "title"] [FROM "app.type"] [PRI n]
                     [IMG "path"] [SCREEN "name"] [CLOSEONDC] [LOGONLY]
+BeaconBridge.rexx BRIDGE
 BeaconBridge.rexx ?
 ```
 
-Prints help when run without arguments.
+`BRIDGE` runs the bridge as a daemon. Without a message the script prints help.
+
+## Bridge mode
+
+`BeaconBridge BRIDGE` always creates the ARexx port of the *other* beacon
+system and relays what it receives:
+
+- on AmigaOS 4 -- opens the `MAGICBEACON` port, relaying requests to
+  RinghioServer
+- on MorphOS -- opens the `RINGHIO` port, relaying requests to MagicBeacon
+  (via `SendBeacon`)
+
+So clients written for one platform work on the other without changes.
+Run it on every boot (e.g. startup) and stop it by sending `EXIT` or `QUIT`
+to the port.
 
 ## Example
 
