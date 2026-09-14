@@ -2,10 +2,11 @@
  * $VER: BeaconBridge.rexx 0.1 (11.09.2026)
  *
  *  Usage:
+ *    BeaconBridge BRIDGE                     (default, also from icon)
  *    BeaconBridge "message" [TITLE "title"] [FROM "app.type"] [PRI n]
  *                           [IMG "path"] [SCREEN "name"] [CLOSEONDC] [LOGONLY]
- *    BeaconBridge BRIDGE
  *
+ *  Without arguments the bridge daemon runs (started by the icon).
  *  One-shot mode sends to RinghioServer (RINGHIO ARexx port) on AmigaOS 4.1+,
  *  or to MagicBeacon (SendBeacon shell command) on MorphOS 3.16+.
  *
@@ -40,18 +41,20 @@ logonly   = 0
 /* ------------------------------------------------------------------ */
 parse arg opts
 opts = strip(opts)
-if opts = '' | opts = '?' then do
+if opts = '?' then do
   say 'BeaconBridge: MagicBeacon <-> Ringhio notification bridge'
   say
   say 'Usage: BeaconBridge "message" [TITLE "title"] [FROM "app.type"] [PRI 0-10]'
   say '                       [IMG "path"] [SCREEN "name"] [CLOSEONDC] [LOGONLY]'
   say '       BeaconBridge BRIDGE'
   say
+  say 'Running without a message (e.g. from the icon) starts the bridge daemon.'
+  say
   say 'Mode:'
   say '  one-shot  sends the notification directly to the detected target'
-  say '  BRIDGE    daemon - creates the opposite platform ARexx port and'
-  say '            relays requests: MAGICBEACON port on AmigaOS 4, RINGHIO'
-  say '            port on MorphOS'
+  say '  BRIDGE    (default) daemon - creates the opposite platform ARexx'
+  say '            port and relays requests: MAGICBEACON port on AmigaOS 4,'
+  say '            RINGHIO port on MorphOS'
   say
   say 'Targets:'
   say '  RINGHIO      RinghioServer ARexx port   (AmigaOS 4.1+)'
@@ -126,7 +129,7 @@ do while tokens ~= ''
   end
 end
 
-if bridge then exit run_bridge()
+if bridge | message = '' then exit run_bridge()
 
 if message = '' then do
   say APP || ': no message given'

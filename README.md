@@ -10,13 +10,15 @@ ARexx notification bridge between MagicBeacon (MorphOS) and Ringhio (AmigaOS 4.1
 ## Usage
 
 ```
+BeaconBridge.rexx                    (starts the bridge daemon - default)
+BeaconBridge.rexx BRIDGE
 BeaconBridge.rexx "message" [TITLE "title"] [FROM "app.type"] [PRI n]
                     [IMG "path"] [SCREEN "name"] [CLOSEONDC] [LOGONLY]
-BeaconBridge.rexx BRIDGE
 BeaconBridge.rexx ?
 ```
 
-`BRIDGE` runs the bridge as a daemon. Without a message the script prints help.
+Running without a message (which is what the `BeaconBridge.info` icon does)
+starts the bridge daemon. `?` prints help. One-shot sending needs a message.
 
 ## Bridge mode
 
