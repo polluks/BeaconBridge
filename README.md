@@ -5,36 +5,32 @@ ARexx notification bridge between MagicBeacon (MorphOS) and Ringhio (AmigaOS 4.1
 ## Requirements
 
 - ARexx (RexxMast)
-- rexxsupport.library
 - RinghioServer (AmigaOS 4.1+) or SendBeacon (MorphOS 3.16+)
 
 ## Usage
 
 ```
 BeaconBridge.rexx "message" [TITLE "title"] [FROM "app.type"] [PRI n]
-                [IMG "path"] [SCREEN "name"] [CLOSEONDC] [LOGONLY] [NOSRV]
-BeaconBridge.rexx LISTEN [TARGET RINGHIO|MAGICBEACON]
-BeaconBridge.rexx POLL <file> [INTERVAL n] [TARGET RINGHIO|MAGICBEACON]
+                    [IMG "path"] [SCREEN "name"] [CLOSEONDC] [LOGONLY]
 BeaconBridge.rexx ?
 ```
 
-## Modes
+Prints help when run without arguments.
 
-- **One-shot**: forward a single notification directly
-- **Server**: open an ARexx port (`BEACONBRIDGE`) and accept commands
-- **Polling**: watch a file for line changes and notify
+## Example
 
-## Server commands
+```
+BeaconBridge.rexx "Disk full" FROM=Sys.Error TITLE="Warning" PRI=9
+```
 
-`ADDRESS BEACONBRIDGE` to send:
+## Targets
 
-- `SEND <message> [TITLE=...] [PRI=...] [IMG=...] [CLOSEONDC] [LOGONLY]`
-- `SHOW` -- print status
-- `QUIT` -- shut down
+- **RINGHIO** -- RinghioServer ARexx port (AmigaOS 4.1+); the default when the
+  `RINGHIO` port is present
+- **MAGICBEACON** -- `SendBeacon` shell command (MorphOS 3.16+); used otherwise
 
-## Cross-machine bridging
-
-Use [NetFS](https://morph.zone/modules/news/article_storyid_2498.html) ARexx port sharing or a socket tunnel to bridge across a network.
+On AmigaOS 4 the bridge auto-registers itself (`BEACONBRIDGE`) with
+RinghioServer before sending.
 
 ## Priorities
 
