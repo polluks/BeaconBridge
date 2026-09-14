@@ -1,4 +1,4 @@
-/* $VER: BeaconBridge.rexx 1.0 (11.09.2026) MagicBeacon <-> Ringhio notification bridge */
+/* $VER: BeaconBridge.rexx 0.1 (11.09.2026) MagicBeacon <-> Ringhio notification bridge */
 /* BeaconBridge.rexx - Bridge between MagicBeacon (MorphOS) and Ringhio (AmigaOS 4)
  *
  *  Forwards notifications between the two systems via ARexx.
